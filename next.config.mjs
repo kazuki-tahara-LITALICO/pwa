@@ -1,4 +1,20 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
+import withSerwistInit from '@serwist/next';
 
-export default nextConfig;
+const withSerwist = withSerwistInit({
+  swSrc: 'app/sw.ts',
+  swDest: 'public/sw.js',
+});
+
+const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/~offline',
+        destination: '/offline',
+        permanent: false,
+      },
+    ];
+  },
+};
+
+export default withSerwist(nextConfig);
