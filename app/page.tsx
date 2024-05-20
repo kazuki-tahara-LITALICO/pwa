@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 
 import SendNotification from './SendNotification';
-import { useEffect } from 'react';
 
 export const metadata: Metadata = {
   title: 'Home',

@@ -5,16 +5,4 @@ const withSerwist = withSerwistInit({
   swDest: 'public/sw.js',
 });
 
-const nextConfig = {
-  async redirects() {
-    return [
-      {
-        source: '/~offline',
-        destination: '/offline',
-        permanent: false,
-      },
-    ];
-  },
-};
-
-export default withSerwist(nextConfig);
+export default withSerwist({});

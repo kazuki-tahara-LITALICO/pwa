@@ -34,8 +34,10 @@ const serwist = new Serwist({
 self.addEventListener('push', function async(event) {
   const data = event.data ? event.data.json() : {};
   const title = data.title || 'Default title';
+  const message = data.message || 'Default message';
+
   const options = {
-    body: data.body || 'Default body',
+    body: message,
   };
 
   event.waitUntil(
