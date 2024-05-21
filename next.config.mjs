@@ -3,7 +3,7 @@ import withSerwistInit from '@serwist/next';
 const revision = crypto.randomUUID();
 
 const withSerwist = withSerwistInit({
-  swSrc: 'app/sw.ts',
+  swSrc: 'lib/worker/sw.ts',
   swDest: 'public/sw.js',
   additionalPrecacheEntries: [{ url: '/~offline', revision }],
 });
