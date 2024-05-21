@@ -31,6 +31,8 @@ const serwist = new Serwist({
   },
 });
 
+serwist.addEventListeners();
+
 self.addEventListener('push', function async(event) {
   const data = event.data ? event.data.json() : {};
   const title = data.title || 'Default title';
