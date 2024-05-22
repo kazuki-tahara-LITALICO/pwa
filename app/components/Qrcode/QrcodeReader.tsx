@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 const qrcodeRegionId = 'html5qr-code-full-region';
 
 type Props = {
-  onScanSuccess: () => void;
+  onScanSuccess: (arg: any) => void;
   onScanFailure: () => void;
 };
 
@@ -20,6 +20,7 @@ const QrcodeReader = ({ onScanSuccess, onScanFailure }: Props) => {
       label: string;
     }[]
   >([]);
+
   const [html5QrcodeScanner, setHtml5QrcodeScanner] =
     useState<Html5Qrcode | null>(null);
 
@@ -34,7 +35,8 @@ const QrcodeReader = ({ onScanSuccess, onScanFailure }: Props) => {
     };
   }, [onScanFailure, onScanSuccess]);
 
-  const getCamera = async () => {
+  const getCameras = async () => {
+    console.info('aaa');
     const cameras = await Html5Qrcode.getCameras().catch((err) => {
       console.error(`カメラが取得出来ませんでした：${err}`);
     });
@@ -65,11 +67,53 @@ const QrcodeReader = ({ onScanSuccess, onScanFailure }: Props) => {
     setHtml5QrcodeScanner(html5QrcodeScanner);
   };
 
-  // const startScan = async () => {
-  //   await html5QrcodeScanner.
-  // }
+  const switchCamera = (targetId: string) => {
+    setSelectedCameraId(targetId);
+  };
 
-  return <div>QrcodeReader</div>;
+  return (
+    <div className="container mx-auto">
+      <div className="max-w-screen-lg" id={qrcodeRegionId} />
+      <div>
+        {cameras.length > 0 ? (
+          <select
+            name="camera"
+            value={selectedCameraId}
+            onChange={(e) => switchCamera(e.target.value)}
+          >
+            {cameras.map((camera) => (
+              <option key={camera.value} value={camera.value}>
+                {camera.label}
+              </option>
+            ))}
+          </select>
+        ) : (
+          <p>カメラがありません</p>
+        )}
+      </div>
+      <div>
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 rounded mr-2"
+          onClick={getCameras}
+        >
+          カメラ取得
+        </button>
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 rounded mr-2"
+          onClick={startScan}
+          disabled={!cameraPermission && selectedCameraId == ''}
+        >
+          スキャン開始
+        </button>
+        <button
+          className="bg-red-500 hover:bg-red-700 text-white text-sm font-bold py-1 px-2 rounded"
+          onClick={stopScan}
+        >
+          スキャン停止
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default QrcodeReader;
