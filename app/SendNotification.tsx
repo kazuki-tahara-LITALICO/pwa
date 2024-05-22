@@ -135,6 +135,7 @@ export default function SendNotification() {
         type="button"
         onClick={subscribeButtonOnClick}
         disabled={isSubscribed}
+        className="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 rounded disabled:bg-gray-400 mr-2"
       >
         Subscribe
       </button>
@@ -142,6 +143,7 @@ export default function SendNotification() {
         type="button"
         onClick={unsubscribeButtonOnClick}
         disabled={!isSubscribed}
+        className="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 rounded disabled:bg-gray-400 mr-2"
       >
         Unsubscribe
       </button>
@@ -149,6 +151,7 @@ export default function SendNotification() {
         type="button"
         onClick={sendNotificationButtonOnClick}
         disabled={!isSubscribed}
+        className="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 rounded mr-2"
       >
         Send Notification
       </button>
