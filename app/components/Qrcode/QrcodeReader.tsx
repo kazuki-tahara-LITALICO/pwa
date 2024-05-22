@@ -33,10 +33,10 @@ const QrcodeReader = ({ onScanSuccess, onScanFailure }: Props) => {
     return () => {
       scanner.clear();
     };
-  }, [onScanFailure, onScanSuccess]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const getCameras = async () => {
-    console.info('aaa');
     const cameras = await Html5Qrcode.getCameras().catch((err) => {
       console.error(`カメラが取得出来ませんでした：${err}`);
     });
