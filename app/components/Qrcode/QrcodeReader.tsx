@@ -1,7 +1,9 @@
 'use client';
 
-import { Html5Qrcode, Html5QrcodeScanner } from 'html5-qrcode';
-import { useEffect, useState } from 'react';
+import { Html5Qrcode, Html5QrcodeScannerState } from 'html5-qrcode';
+import config from 'next/config';
+import error from 'next/error';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 const qrcodeRegionId = 'html5qr-code-full-region';
 
@@ -10,16 +12,20 @@ type Props = {
   onScanFailure: () => void | undefined;
 };
 
+type Cameras = {
+  value: string;
+  label: string;
+}[];
+
 const QrcodeReader = ({ onScanSuccess, onScanFailure }: Props) => {
-  const config = { fps: 1, qrbox: { width: 250, height: 250 } };
+  const config = useMemo(
+    () => ({ fps: 1, qrbox: { width: 250, height: 250 } }),
+    []
+  );
+
   const [cameraPermission, setCameraPermission] = useState<boolean>(false);
   const [selectedCameraId, setSelectedCameraId] = useState<string>('');
-  const [cameras, setCameras] = useState<
-    {
-      value: string;
-      label: string;
-    }[]
-  >([]);
+  const [cameras, setCameras] = useState<Cameras>([]);
 
   const [html5QrcodeScanner, setHtml5QrcodeScanner] =
     useState<Html5Qrcode | null>(null);
@@ -31,45 +37,72 @@ const QrcodeReader = ({ onScanSuccess, onScanFailure }: Props) => {
     const scanner = new Html5Qrcode(qrcodeRegionId);
     setHtml5QrcodeScanner(scanner);
     return () => {
-      scanner.clear();
+      if (scanner.getState() === Html5QrcodeScannerState.SCANNING) {
+        scanner
+          .stop()
+          .then(() => {
+            scanner.clear();
+          })
+          .catch((err) => {
+            console.error(`Error stopping the scanner: ${err}`);
+            scanner.clear();
+          });
+      } else {
+        scanner.clear();
+      }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getCameras = async () => {
-    const cameras = await Html5Qrcode.getCameras().catch((err) => {
-      console.error(`カメラが取得出来ませんでした：${err}`);
-    });
-    if (cameras && cameras.length) {
-      const formattedCameras = cameras.map((camera) => ({
-        value: camera.id,
-        label: camera.label || `Camera ${camera.id}`,
-      }));
-      setCameras(formattedCameras);
-      setSelectedCameraId(formattedCameras[0].value);
-      setCameraPermission(true);
+  const getCameras = useCallback(async () => {
+    try {
+      const cameras = await Html5Qrcode.getCameras();
+      if (cameras && cameras.length) {
+        const formattedCameras = cameras.map((camera) => ({
+          value: camera.id,
+          label: camera.label || `Camera ${camera.id}`,
+        }));
+        setCameras(formattedCameras);
+        setSelectedCameraId(formattedCameras[0].value);
+        setCameraPermission(true);
+      }
+    } catch (error) {
+      console.error(`カメラが取得出来ませんでした：${error}`);
     }
-  };
+  }, []);
 
-  const startScan = async () => {
+  const startScan = useCallback(async () => {
     if (!html5QrcodeScanner) throw new Error('system error');
-    await html5QrcodeScanner
-      .start(selectedCameraId, config, onScanSuccess, onScanFailure)
-      .catch((error) => console.error(`Error starting the scanner: ${error}`));
-    setHtml5QrcodeScanner(html5QrcodeScanner);
-  };
+    try {
+      await html5QrcodeScanner.start(
+        selectedCameraId,
+        config,
+        onScanSuccess,
+        onScanFailure
+      );
+    } catch (error) {
+      console.error(`Error starting the scanner: ${error}`);
+    }
+  }, [
+    config,
+    html5QrcodeScanner,
+    onScanFailure,
+    onScanSuccess,
+    selectedCameraId,
+  ]);
 
-  const stopScan = async () => {
+  const stopScan = useCallback(async () => {
     if (!html5QrcodeScanner) throw new Error('system error');
-    await html5QrcodeScanner
-      .stop()
-      .catch((error) => console.error(`Error stopping the scanner: ${error}`));
-    setHtml5QrcodeScanner(html5QrcodeScanner);
-  };
+    try {
+      await html5QrcodeScanner.stop();
+    } catch (error) {
+      console.error(`Error stopping the scanner: ${error}`);
+    }
+  }, [html5QrcodeScanner]);
 
-  const switchCamera = (targetId: string) => {
+  const switchCamera = useCallback((targetId: string) => {
     setSelectedCameraId(targetId);
-  };
+  }, []);
 
   return (
     <div className="container mx-auto">
