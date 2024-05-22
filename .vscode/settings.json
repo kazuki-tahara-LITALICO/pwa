@@ -9,7 +9,7 @@
   "editor.quickSuggestions": {
     "strings": true
   },
-  "cSpell.words": ["Precache", "serwist"],
+  "cSpell.words": ["Precache", "qrbox", "Qrcode", "serwist"],
   "tailwindCSS.experimental.classRegex": [
     ["ctl\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ]
