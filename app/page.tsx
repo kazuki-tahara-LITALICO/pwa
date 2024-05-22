@@ -11,7 +11,7 @@ export default function Page() {
   return (
     <>
       <h1>Next.js + Serwist</h1>
-      <Link href="/second">second</Link>
+      <Link href="/scan">QRcode Scan Page</Link>
       <SendNotification />
     </>
   );

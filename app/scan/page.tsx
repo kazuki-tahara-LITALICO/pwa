@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import QrcodeReader from '../components/Qrcode/QrcodeReader';
 
-const SecondPage = () => {
+const QrScanPage = () => {
   const [scannedResult, setScannedResult] = useState<string>('');
 
   const onNewScanResult = (result: string) => {
@@ -13,9 +13,9 @@ const SecondPage = () => {
 
   return (
     <main>
-      <h1>Second page</h1>
+      <h1>QrScanPage</h1>
       <div>
-        <h2>スキャン結果:{scannedResult}</h2>
+        <h2>スキャン結果URL:{scannedResult}</h2>
       </div>
       <QrcodeReader onScanSuccess={onNewScanResult} onScanFailure={() => {}} />
       <Link href="/">Home</Link>
@@ -23,4 +23,4 @@ const SecondPage = () => {
   );
 };
 
-export default SecondPage;
+export default QrScanPage;
