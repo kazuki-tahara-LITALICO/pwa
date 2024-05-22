@@ -7,7 +7,7 @@ const qrcodeRegionId = 'html5qr-code-full-region';
 
 type Props = {
   onScanSuccess: (arg: any) => void;
-  onScanFailure: () => void;
+  onScanFailure: () => void | undefined;
 };
 
 const QrcodeReader = ({ onScanSuccess, onScanFailure }: Props) => {
