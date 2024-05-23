@@ -32,10 +32,6 @@ export const pushHandler = async (event: PushEvent) => {
 
   const options = {
     body: message,
-    // data: {
-    //   url: '/scan',
-    //   badgeCount: badgeCount,
-    // },
   };
 
   event.waitUntil(
@@ -51,7 +47,7 @@ export const pushHandler = async (event: PushEvent) => {
 
   if ('setAppBadge' in navigator) {
     navigator
-      .setAppBadge(badgeCount)
+      .setAppBadge(+badgeCount)
       .catch((error) => console.error(`Failed to set badge:${error}`));
   }
 };
