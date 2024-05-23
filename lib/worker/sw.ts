@@ -30,4 +30,10 @@ const serwist = new Serwist({
 });
 
 serwist.addEventListeners();
+
 self.addEventListener('push', pushHandler);
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  event.waitUntil(clients.openWindow(event.notification.data.url));
+});
