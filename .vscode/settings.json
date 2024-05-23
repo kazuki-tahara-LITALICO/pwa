@@ -9,7 +9,13 @@
   "editor.quickSuggestions": {
     "strings": true
   },
-  "cSpell.words": ["Precache", "qrbox", "Qrcode", "serwist"],
+  "cSpell.words": [
+    "beforeinstallprompt",
+    "Precache",
+    "qrbox",
+    "Qrcode",
+    "serwist"
+  ],
   "tailwindCSS.experimental.classRegex": [
     ["ctl\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ]
