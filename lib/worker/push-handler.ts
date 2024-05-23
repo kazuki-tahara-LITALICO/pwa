@@ -46,8 +46,12 @@ export const pushHandler = async (event: PushEvent) => {
   );
 
   if ('setAppBadge' in navigator) {
+    console.log('data.badgeCount', data.badgeCount);
+    console.log('badgeCount', badgeCount);
+    console.log('typeof data.badgeCount', typeof data.badgeCount);
+    console.log('typeof data.badgeCount', typeof data.badgeCount);
     navigator
-      .setAppBadge(+badgeCount)
+      .setAppBadge(data.badgeCount)
       .catch((error) => console.error(`Failed to set badge:${error}`));
   }
 };
