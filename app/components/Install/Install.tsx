@@ -32,7 +32,7 @@ const Install = () => {
 
   return (
     <button disabled={!ready} onClick={handleClick}>
-      Install
+      インストール
     </button>
   );
 };
