@@ -19,4 +19,10 @@ export const pushHandler = (event: PushEvent) => {
         console.error('Error displaying notification:', error);
       })
   );
+
+  if ('setAppBadge' in navigator) {
+    navigator
+      .setAppBadge(data.badgeCount)
+      .catch((error) => console.error(`Failed to set badge:${error}`));
+  }
 };

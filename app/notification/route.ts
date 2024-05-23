@@ -27,6 +27,7 @@ export const POST = async (req: NextRequest) => {
     const payload = JSON.stringify({
       title: 'Hello Web Push',
       message: 'Your web push notification is here!',
+      badgeCount: 1,
     });
 
     const response = await webPush.sendNotification(subscription, payload);
