@@ -33,8 +33,8 @@ export const pushHandler = async (event: PushEvent) => {
   const options = {
     body: message,
     data: {
-      url: '/',
-      badgeCount,
+      url: '/scan',
+      badgeCount: badgeCount,
     },
   };
 
