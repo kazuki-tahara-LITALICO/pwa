@@ -20,6 +20,7 @@ const setBadgeCount = async (count: number) => {
 
 export const pushHandler = async (event: PushEvent) => {
   const data = event.data ? event.data.json() : {};
+  console.log('Push event data:', data); // 追加
   const title = data.title || 'Default title';
   const message = data.message || 'Default message';
 
@@ -28,7 +29,8 @@ export const pushHandler = async (event: PushEvent) => {
   };
 
   let badgeCount = await getBadgeCount();
-  badgeCount += 1;
+  badgeCount += data.badgeCount || 1;
+  console.log('Updated badge count:', badgeCount); // 追加
 
   await setBadgeCount(badgeCount);
 
