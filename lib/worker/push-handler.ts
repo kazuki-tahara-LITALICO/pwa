@@ -19,39 +19,37 @@ const setBadgeCount = async (count: number) => {
 };
 
 export const pushHandler = async (event: PushEvent) => {
-  const data = event.data ? event.data.json() : {};
-  console.log('Push event data:', data); // 追加
-  const title = data.title || 'Default title';
-  const message = data.message || 'Default message';
-
-  let badgeCount = await getBadgeCount();
-  badgeCount += data.badgeCount || 1;
-  console.log('Updated badge count:', badgeCount); // 追加
-
-  await setBadgeCount(badgeCount);
-
-  const options = {
-    body: message,
-  };
-
-  if ('setAppBadge' in navigator) {
-    console.log('data.badgeCount', data.badgeCount);
-    console.log('badgeCount', badgeCount);
-    console.log('typeof data.badgeCount', typeof data.badgeCount);
-    console.log('typeof data.badgeCount', typeof data.badgeCount);
-    navigator
-      .setAppBadge(badgeCount)
-      .catch((error) => console.error(`Failed to set badge:${error}`));
-  }
-
   event.waitUntil(
-    self.registration
-      .showNotification(title, options)
-      .then(() => {
-        console.log('Notification displayed successfully.');
-      })
-      .catch((error) => {
-        console.error('Error displaying notification:', error);
-      })
+    (async () => {
+      const data = event.data ? event.data.json() : {};
+      console.log('Push event data:', data);
+      const title = data.title || 'Default title';
+      const message = data.message || 'Default message';
+
+      let badgeCount = await getBadgeCount();
+      badgeCount += data.badgeCount || 1;
+      console.log('Updated badge count:', badgeCount);
+
+      await setBadgeCount(badgeCount);
+
+      const options = {
+        body: message,
+      };
+
+      if ('setAppBadge' in navigator) {
+        await navigator.setAppBadge(badgeCount).catch((error) => {
+          console.error('Failed to set badge:', error);
+        });
+      }
+
+      await self.registration
+        .showNotification(title, options)
+        .then(() => {
+          console.log('Notification displayed successfully.');
+        })
+        .catch((error) => {
+          console.error('Error displaying notification:', error);
+        });
+    })()
   );
 };
