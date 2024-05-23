@@ -24,18 +24,18 @@ export const pushHandler = async (event: PushEvent) => {
   const title = data.title || 'Default title';
   const message = data.message || 'Default message';
 
-  let badgeCount = await getBadgeCount();
-  badgeCount += data.badgeCount || 1;
-  console.log('Updated badge count:', badgeCount); // 追加
+  // let badgeCount = await getBadgeCount();
+  // badgeCount += data.badgeCount || 1;
+  // console.log('Updated badge count:', badgeCount); // 追加
 
-  await setBadgeCount(badgeCount);
+  // await setBadgeCount(badgeCount);
 
   const options = {
     body: message,
-    data: {
-      url: '/scan',
-      badgeCount: badgeCount,
-    },
+    // data: {
+    //   url: '/scan',
+    //   badgeCount: badgeCount,
+    // },
   };
 
   event.waitUntil(
