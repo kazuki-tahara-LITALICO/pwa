@@ -34,6 +34,16 @@ export const pushHandler = async (event: PushEvent) => {
     body: message,
   };
 
+  if ('setAppBadge' in navigator) {
+    console.log('data.badgeCount', data.badgeCount);
+    console.log('badgeCount', badgeCount);
+    console.log('typeof data.badgeCount', typeof data.badgeCount);
+    console.log('typeof data.badgeCount', typeof data.badgeCount);
+    navigator
+      .setAppBadge(badgeCount)
+      .catch((error) => console.error(`Failed to set badge:${error}`));
+  }
+
   event.waitUntil(
     self.registration
       .showNotification(title, options)
@@ -44,14 +54,4 @@ export const pushHandler = async (event: PushEvent) => {
         console.error('Error displaying notification:', error);
       })
   );
-
-  if ('setAppBadge' in navigator) {
-    console.log('data.badgeCount', data.badgeCount);
-    console.log('badgeCount', badgeCount);
-    console.log('typeof data.badgeCount', typeof data.badgeCount);
-    console.log('typeof data.badgeCount', typeof data.badgeCount);
-    navigator
-      .setAppBadge(data.badgeCount)
-      .catch((error) => console.error(`Failed to set badge:${error}`));
-  }
 };
