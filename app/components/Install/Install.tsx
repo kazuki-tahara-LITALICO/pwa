@@ -1,8 +1,13 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+}
+
 const Install = () => {
-  const deferredPromptRef = useRef(null);
+  const deferredPromptRef = useRef<BeforeInstallPromptEvent | null>(null);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
