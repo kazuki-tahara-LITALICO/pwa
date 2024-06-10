@@ -73,7 +73,7 @@ export default function SendNotification() {
     });
     setSubscription(sub);
     setIsSubscribed(true);
-    alert('Web push subscribed!');
+    alert('push 通知を許可します');
     console.log(sub);
   };
 

@@ -18,7 +18,12 @@ const QrScanPage = () => {
         <h2>スキャン結果URL:{scannedResult}</h2>
       </div>
       <QrcodeReader onScanSuccess={onNewScanResult} onScanFailure={() => {}} />
-      <Link href="/">Home</Link>
+      <Link
+        href="/"
+        className="inline-block text-2xl font-medium text-gray-800 hover:text-gray-500 mt-5 mb-6 px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-100"
+      >
+        Home Page
+      </Link>
     </main>
   );
 };
