@@ -14,15 +14,17 @@ export default function Page() {
       <h1 className="text-4xl font-bold mb-8 text-blue-600">
         Next.js + Serwist
       </h1>
-      <Link
-        href="/scan"
-        className="text-2xl font-medium text-gray-800 hover:text-gray-500 mb-6 px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-100"
-      >
-        QRcode Scan Page
-      </Link>
+      <h2 className="text-2xl font-bold mb-5">Subscribe Test Page</h2>
+
       <div className="w-full max-w-md">
         <SendNotification />
       </div>
+      <Link
+        href="/scan"
+        className="text-2xl font-medium text-gray-800 underline hover:text-blue-600"
+      >
+        Go to QRcode Scan Page
+      </Link>
       {/* <div className="w-full max-w-md mt-4">
         <Install />
       </div> */}
