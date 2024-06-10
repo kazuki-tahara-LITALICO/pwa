@@ -19,9 +19,12 @@ const QrScanPage = () => {
       </h1>
       <h2 className="text-2xl font-bold mb-5">QR code Test Page</h2>
       スキャン結果URL:{scannedResult}
-      {/* <div className="w-fuu"> */}
-      <QrcodeReader onScanSuccess={onNewScanResult} onScanFailure={() => {}} />
-      {/* </div> */}
+      <div className="w-full max-w-md">
+        <QrcodeReader
+          onScanSuccess={onNewScanResult}
+          onScanFailure={() => {}}
+        />
+      </div>
       <Link
         href="/"
         className="text-2xl font-medium text-gray-800 underline hover:text-blue-600"

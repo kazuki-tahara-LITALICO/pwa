@@ -113,54 +113,56 @@ const QrcodeReader = ({ onScanSuccess, onScanFailure }: Props) => {
   }, []);
 
   return (
-    <div className="container mx-auto">
+    <div className="">
       <div className="max-w-screen-lg" id={qrcodeRegionId} />
+      <div className="flex flex-col items-center space-y-3 mb-6">
+        <div>
+          {cameras.length > 0 ? (
+            <select
+              name="camera"
+              value={selectedCameraId}
+              onChange={(e) => switchCamera(e.target.value)}
+            >
+              {cameras.map((camera) => (
+                <option key={camera.value} value={camera.value}>
+                  {camera.label}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <p>カメラがありません</p>
+          )}
+        </div>
 
-      <div>
-        {cameras.length > 0 ? (
-          <select
-            name="camera"
-            value={selectedCameraId}
-            onChange={(e) => switchCamera(e.target.value)}
-          >
-            {cameras.map((camera) => (
-              <option key={camera.value} value={camera.value}>
-                {camera.label}
-              </option>
-            ))}
-          </select>
-        ) : (
-          <p>カメラがありません</p>
-        )}
-      </div>
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 rounded mr-2"
-        onClick={getCameras}
-      >
-        カメラ取得
-      </button>
-
-      <div className="flex items-center mb-6">
-        <span className="mr-2 text-gray-800">
-          {isScanCamera ? 'スキャン停止' : 'スキャン開始'}
-        </span>
-        <div
-          className={`relative inline-block w-12 h-6 transition duration-200 ease-linear ${
-            isScanCamera ? 'bg-blue-500' : 'bg-red-500'
-          } rounded-full cursor-pointer ${
-            !cameraPermission ? 'cursor-not-allowed opacity-50' : ''
-          }`}
-          onClick={() => {
-            if (cameraPermission) {
-              handleToggleSubscription();
-            }
-          }}
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 rounded mr-2"
+          onClick={getCameras}
         >
-          <span
-            className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-200 ease-linear transform ${
-              isScanCamera ? 'translate-x-6' : ''
+          カメラ取得
+        </button>
+
+        <div className="flex items-center mb-6">
+          <span className="mr-2 text-gray-800">
+            {isScanCamera ? 'スキャン停止' : 'スキャン開始'}
+          </span>
+          <div
+            className={`relative inline-block w-12 h-6 transition duration-200 ease-linear ${
+              isScanCamera ? 'bg-blue-500' : 'bg-red-500'
+            } rounded-full cursor-pointer ${
+              !cameraPermission ? 'cursor-not-allowed opacity-50' : ''
             }`}
-          ></span>
+            onClick={() => {
+              if (cameraPermission) {
+                handleToggleSubscription();
+              }
+            }}
+          >
+            <span
+              className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-200 ease-linear transform ${
+                isScanCamera ? 'translate-x-6' : ''
+              }`}
+            ></span>
+          </div>
         </div>
       </div>
     </div>
