@@ -14,7 +14,7 @@ export default function Page() {
       <h1 className="text-4xl font-bold mb-8 text-blue-600">
         Next.js + Serwist
       </h1>
-      <h2 className="text-2xl font-bold mb-5">Subscribe Test Page</h2>
+      <h2 className="text-2xl font-bold mb-5">Web Push Test Page</h2>
 
       <div className="w-full max-w-md">
         <SendNotification />

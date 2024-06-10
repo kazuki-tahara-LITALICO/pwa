@@ -147,8 +147,14 @@ const QrcodeReader = ({ onScanSuccess, onScanFailure }: Props) => {
         <div
           className={`relative inline-block w-12 h-6 transition duration-200 ease-linear ${
             isScanCamera ? 'bg-blue-500' : 'bg-red-500'
-          } rounded-full`}
-          onClick={handleToggleSubscription}
+          } rounded-full cursor-pointer ${
+            !cameraPermission ? 'cursor-not-allowed opacity-50' : ''
+          }`}
+          onClick={() => {
+            if (cameraPermission) {
+              handleToggleSubscription();
+            }
+          }}
         >
           <span
             className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-200 ease-linear transform ${
