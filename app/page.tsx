@@ -25,6 +25,7 @@ export default function Page() {
       >
         Go to QRcode Scan Page
       </Link>
+      {/* PC or Android版でのダウンロードリンク */}
       {/* <div className="w-full max-w-md mt-4">
         <Install />
       </div> */}

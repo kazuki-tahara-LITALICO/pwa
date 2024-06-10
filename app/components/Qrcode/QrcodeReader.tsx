@@ -1,8 +1,6 @@
 'use client';
 
 import { Html5Qrcode, Html5QrcodeScannerState } from 'html5-qrcode';
-import config from 'next/config';
-import error from 'next/error';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 const qrcodeRegionId = 'html5qr-code-full-region';
@@ -18,6 +16,7 @@ type Cameras = {
 }[];
 
 const QrcodeReader = ({ onScanSuccess, onScanFailure }: Props) => {
+  const [isScanCamera, setIsScanCamera] = useState(false);
   const config = useMemo(
     () => ({ fps: 1, qrbox: { width: 250, height: 250 } }),
     []
@@ -53,6 +52,15 @@ const QrcodeReader = ({ onScanSuccess, onScanFailure }: Props) => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleToggleSubscription = async () => {
+    if (isScanCamera) {
+      await stopScan();
+    } else {
+      await startScan();
+    }
+    setIsScanCamera(!isScanCamera);
+  };
 
   const getCameras = useCallback(async () => {
     try {
@@ -107,44 +115,46 @@ const QrcodeReader = ({ onScanSuccess, onScanFailure }: Props) => {
   return (
     <div className="container mx-auto">
       <div className="max-w-screen-lg" id={qrcodeRegionId} />
-      <div className="">
-        <div>
-          {cameras.length > 0 ? (
-            <select
-              name="camera"
-              value={selectedCameraId}
-              onChange={(e) => switchCamera(e.target.value)}
-            >
-              {cameras.map((camera) => (
-                <option key={camera.value} value={camera.value}>
-                  {camera.label}
-                </option>
-              ))}
-            </select>
-          ) : (
-            <p>カメラがありません</p>
-          )}
-        </div>
-        <div className="">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 rounded mr-2"
-            onClick={getCameras}
+
+      <div>
+        {cameras.length > 0 ? (
+          <select
+            name="camera"
+            value={selectedCameraId}
+            onChange={(e) => switchCamera(e.target.value)}
           >
-            カメラ取得
-          </button>
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 rounded mr-2"
-            onClick={startScan}
-            disabled={!cameraPermission && selectedCameraId == ''}
-          >
-            スキャン開始
-          </button>
-          <button
-            className="bg-red-500 hover:bg-red-700 text-white text-sm font-bold py-1 px-2 rounded"
-            onClick={stopScan}
-          >
-            スキャン停止
-          </button>
+            {cameras.map((camera) => (
+              <option key={camera.value} value={camera.value}>
+                {camera.label}
+              </option>
+            ))}
+          </select>
+        ) : (
+          <p>カメラがありません</p>
+        )}
+      </div>
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 rounded mr-2"
+        onClick={getCameras}
+      >
+        カメラ取得
+      </button>
+
+      <div className="flex items-center mb-6">
+        <span className="mr-2 text-gray-800">
+          {isScanCamera ? 'スキャン停止' : 'スキャン開始'}
+        </span>
+        <div
+          className={`relative inline-block w-12 h-6 transition duration-200 ease-linear ${
+            isScanCamera ? 'bg-blue-500' : 'bg-red-500'
+          } rounded-full`}
+          onClick={handleToggleSubscription}
+        >
+          <span
+            className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-200 ease-linear transform ${
+              isScanCamera ? 'translate-x-6' : ''
+            }`}
+          ></span>
         </div>
       </div>
     </div>
