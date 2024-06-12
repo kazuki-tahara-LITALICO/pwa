@@ -1,10 +1,10 @@
 const Footer = () => {
   return (
     <div className="sticky bottom-0 left-0 z-50 w-full h-full bg-white border-t border-gray-200 dark:bg-gray-300 dark:border-gray-200">
-      <div className="grid h-full max-w-lg grid-cols-3 mx-auto font-medium py-2">
+      <div className="grid h-full max-w-lg grid-cols-3 mx-auto font-medium pb-4 pt-2">
         <button
           type="button"
-          className="inline-flex flex-col items-center justify-center px-5 group"
+          className="inline-flex flex-col items-center justify-center group"
         >
           <svg
             className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
@@ -21,7 +21,7 @@ const Footer = () => {
         </button>
         <button
           type="button"
-          className="inline-flex flex-col items-center justify-center px-5 group"
+          className="inline-flex flex-col items-center justify-center group"
         >
           <svg
             className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
@@ -44,7 +44,7 @@ const Footer = () => {
         </button>
         <button
           type="button"
-          className="inline-flex flex-col items-center justify-center px-5 group"
+          className="inline-flex flex-col items-center justify-center group"
         >
           <svg
             className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
