@@ -24,7 +24,7 @@ const Footer = () => {
         >
           <BsQrCode className="size-5 text-gray-500 group-hover:text-blue-600 " />
           <span className="text-[0.5rem] text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">
-            設定
+            QRコード
           </span>
         </Link>
         <Link
