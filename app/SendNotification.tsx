@@ -99,7 +99,7 @@ export default function SendNotification() {
     }
 
     try {
-      await fetch('/notification', {
+      await fetch('/api/notification', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
