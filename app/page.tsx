@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 
 const page = () => {
@@ -5,10 +7,20 @@ const page = () => {
     <div>
       <ul>
         <li>
-          <Link href="/scan">scan</Link>
+          <Link
+            href="/scan"
+            className="text-blue-600 underline underline-offset-1"
+          >
+            QR code scan
+          </Link>
         </li>
         <li>
-          <Link href="/notification">notification</Link>
+          <Link
+            href="/notification"
+            className="text-blue-600 underline underline-offset-1"
+          >
+            Push notification
+          </Link>
         </li>
       </ul>
     </div>

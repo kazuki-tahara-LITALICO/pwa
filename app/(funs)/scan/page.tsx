@@ -31,7 +31,7 @@ const QrScanPage = () => {
         href="/"
         className="text-2xl font-medium text-gray-800 underline hover:text-blue-600"
       >
-        home
+        Home
       </Link>
     </>
   );
