@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-import SendNotification from './SendNotification';
+import SendNotification from '../../components/SendNotification/SendNotification';
 // import Install from './components/Install/Install';
 
 export const metadata: Metadata = {
