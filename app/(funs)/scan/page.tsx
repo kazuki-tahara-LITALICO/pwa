@@ -21,18 +21,6 @@ const QrScanPage = () => {
           onScanFailure={() => {}}
         />
       </div>
-      <Link
-        href="/notification"
-        className="text-2xl font-medium text-gray-800 underline hover:text-blue-600"
-      >
-        Go to Scan
-      </Link>
-      <Link
-        href="/"
-        className="text-2xl font-medium text-gray-800 underline hover:text-blue-600"
-      >
-        Home
-      </Link>
     </>
   );
 };

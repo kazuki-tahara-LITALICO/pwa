@@ -15,18 +15,6 @@ export default function Page() {
       <div className="w-full max-w-md">
         <SendNotification />
       </div>
-      <Link
-        href="/scan"
-        className="text-2xl font-medium text-gray-800 underline hover:text-blue-600"
-      >
-        Go to QRcode Scan Page
-      </Link>
-      <Link
-        href="/"
-        className="text-2xl font-medium text-gray-800 underline hover:text-blue-600"
-      >
-        Home
-      </Link>
     </>
   );
 }
