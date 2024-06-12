@@ -1,8 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import QrcodeReader from '../components/Qrcode/QrcodeReader';
-import SendNotification from '../SendNotification';
+import QrcodeReader from '../../components/Qrcode/QrcodeReader';
 
 const QrScanPage = () => {
   const [scannedResult, setScannedResult] = useState<string>('');
@@ -23,10 +22,16 @@ const QrScanPage = () => {
         />
       </div>
       <Link
+        href="/notification"
+        className="text-2xl font-medium text-gray-800 underline hover:text-blue-600"
+      >
+        Go to Scan
+      </Link>
+      <Link
         href="/"
         className="text-2xl font-medium text-gray-800 underline hover:text-blue-600"
       >
-        Go to Home
+        home
       </Link>
     </>
   );
