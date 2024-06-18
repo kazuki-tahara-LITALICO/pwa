@@ -9,7 +9,7 @@ const Signature = () => {
   };
 
   return (
-    <div>
+    <div className="outline-none">
       <canvas ref={canvasRef} className="border border-black outline-none" />
       <div className="flex justify-center mt-5">
         <button
