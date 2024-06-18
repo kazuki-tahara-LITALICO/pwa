@@ -7,6 +7,32 @@ type UseSignaturePadReturn = {
   toDataURL: (type?: string, quality?: number) => string | null;
 };
 
+const drawGrid = (canvas: HTMLCanvasElement) => {
+  const context = canvas.getContext('2d');
+  if (context) {
+    const width = canvas.width;
+    const height = canvas.height;
+    const gridSize = 10;
+
+    context.strokeStyle = '#8888';
+    context.lineWidth = 0.5;
+
+    for (let x = 0; x <= width; x += gridSize) {
+      context.beginPath();
+      context.moveTo(x, 0);
+      context.lineTo(x, height);
+      context.stroke();
+    }
+
+    for (let y = 0; y <= height; y += gridSize) {
+      context.beginPath();
+      context.moveTo(0, y);
+      context.lineTo(width, y);
+      context.stroke();
+    }
+  }
+};
+
 export const useSignaturePad = (): UseSignaturePadReturn => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const signaturePadRef = useRef<SignaturePad | null>(null);
@@ -14,6 +40,7 @@ export const useSignaturePad = (): UseSignaturePadReturn => {
   useEffect(() => {
     if (canvasRef.current) {
       signaturePadRef.current = new SignaturePad(canvasRef.current);
+      drawGrid(canvasRef.current);
     }
 
     return () => {
