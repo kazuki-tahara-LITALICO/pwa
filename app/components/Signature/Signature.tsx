@@ -9,11 +9,11 @@ const Signature = () => {
   };
 
   return (
-    <div className="outline-none">
+    <div className="select-none">
       <canvas ref={canvasRef} className="border border-black outline-none" />
       <div className="flex justify-center mt-5">
         <button
-          className="bg-blue-500 text-white text-sm font-bold py-3 px-4 rounded mr-2"
+          className="bg-blue-500 text-white text-sm font-bold py-3 px-4 rounded mr-2 touch-none"
           onClick={handleSave}
         >
           保存
