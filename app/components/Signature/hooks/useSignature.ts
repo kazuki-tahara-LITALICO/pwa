@@ -39,15 +39,25 @@ export const useSignaturePad = (): UseSignaturePadReturn => {
   const signaturePadRef = useRef<SignaturePad | null>(null);
 
   useEffect(() => {
-    if (canvasRef.current) {
+    const canvas = canvasRef.current;
+    if (canvas) {
+      const preventDefault = (e: Event) => e.preventDefault();
+
+      canvas.addEventListener('touchstart', preventDefault);
+      canvas.addEventListener('touchmove', preventDefault);
+      canvas.addEventListener('touchend', preventDefault);
+
       signaturePadRef.current = new SignaturePad(canvasRef.current);
       drawGrid(canvasRef.current);
-    }
 
-    return () => {
-      signaturePadRef.current?.off();
-      signaturePadRef.current = null;
-    };
+      return () => {
+        canvas.removeEventListener('touchstart', preventDefault);
+        canvas.removeEventListener('touchmove', preventDefault);
+        canvas.removeEventListener('touchend', preventDefault);
+        signaturePadRef.current?.off();
+        signaturePadRef.current = null;
+      };
+    }
   }, []);
 
   const clear = () => {
