@@ -1,6 +1,5 @@
 'use client';
 import { useState } from 'react';
-import Link from 'next/link';
 import QrcodeReader from '../../components/Qrcode/QrcodeReader';
 
 const QrScanPage = () => {
