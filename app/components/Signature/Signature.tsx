@@ -10,7 +10,7 @@ const Signature = () => {
 
   return (
     <div>
-      <canvas ref={canvasRef} className="border border-black" />
+      <canvas ref={canvasRef} className="border border-black outline-none" />
       <div className="flex justify-center mt-5">
         <button
           className="bg-blue-500 text-white text-sm font-bold py-3 px-4 rounded mr-2"
