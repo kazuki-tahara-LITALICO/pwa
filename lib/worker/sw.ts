@@ -37,3 +37,17 @@ self.addEventListener('notificationclick', (event) => {
   event.notification.close();
   event.waitUntil(self.clients.openWindow(event.notification.data.url));
 });
+
+self.addEventListener('fetch', (event) => {
+  if (event.preloadResponse) {
+    event.respondWith(
+      (async function () {
+        const preloadResponse = await event.preloadResponse;
+        if (preloadResponse) {
+          return preloadResponse;
+        }
+        return fetch(event.request);
+      })()
+    );
+  }
+});
