@@ -14,6 +14,7 @@ const drawGrid = (canvas: HTMLCanvasElement) => {
     const height = canvas.height;
     const gridSize = 10;
 
+    context.clearRect(0, 0, width, height); // 既存の内容をクリア
     context.strokeStyle = '#8888';
     context.lineWidth = 0.5;
 
@@ -50,7 +51,10 @@ export const useSignaturePad = (): UseSignaturePadReturn => {
   }, []);
 
   const clear = () => {
-    signaturePadRef.current?.clear();
+    if (canvasRef.current && signaturePadRef.current) {
+      signaturePadRef.current.clear();
+      drawGrid(canvasRef.current); // クリア後に格子線を再描画
+    }
   };
 
   const toDataURL = (
