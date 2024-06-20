@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const LoginPage = () => {
   return (
@@ -31,9 +32,13 @@ const LoginPage = () => {
           <FormInput id="input3" labelName="サ（サンプル）" />
           <FormInput id="input4" labelName="サ（サンプル2）" />
         </div>
-        <FormInput id="input5" labelName="電ンプル" />
-        <FormInput id="input6" labelName="メールサンプル" />
-        <FormInput id="input6" labelName="パスワード" />
+        <FormInput id="input5" labelName="サンプル" type="number" />
+        <FormInput id="input6" labelName="メールサンプル" type="email" />
+        <FormInput id="input6" labelName="パスワード" type="password">
+          <span className="text-xs text-gray-400 mt-2">
+            半角英数字 8~16文字
+          </span>
+        </FormInput>
       </div>
     </div>
   );
@@ -94,13 +99,35 @@ type FormInputProps = {
   id: string;
   labelName: string;
   type?: string;
+  children?: ReactNode;
 };
 
-const FormInput = ({ id, labelName, type = "text" }: FormInputProps) => {
+const FormInput = ({
+  id,
+  labelName,
+  type = "text",
+  children,
+}: FormInputProps) => {
   return (
     <div className="flex flex-col">
       <FormLabel id={id}>{labelName}</FormLabel>
+      {children}
       <Input type={type} id={id} className="h-14 mt-2" />
+      {type === "password" && <FormCheckBox />}
+    </div>
+  );
+};
+
+const FormCheckBox = () => {
+  return (
+    <div className="flex items-center space-x-1 mt-2">
+      <Checkbox id="showPassword" />
+      <label
+        htmlFor="showPassword"
+        className="text-sm peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+      >
+        パスワードを表示
+      </label>
     </div>
   );
 };
