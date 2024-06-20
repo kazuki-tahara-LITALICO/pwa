@@ -27,23 +27,33 @@ const LoginPage = () => {
   const router = useRouter();
   return (
     <div className="w-screen pt-8 pb-7 px-4">
-      <h1 className="text-2xl text-left font-bold">ログイン</h1>
+      <h1 className="text-2xl text-left font-bold">アカウントアカウント</h1>
       <div className="space-y-5 mt-3">
-        <FormInput id="input5" label="サンプルID" type="number">
-          <span className="text-xs text-gray-400 mt-2">
-            半角数字 ハイフンなし
-          </span>
-        </FormInput>
+        <SelectField
+          id="options"
+          label="サンプル"
+          placeholder="選択してください"
+          valueObjectArray={sampleValueObjectArray}
+        />
+        <div className="flex flex-row gap-4">
+          <FormInput id="input1" label="サンプル" />
+          <FormInput id="input2" label="サンプル2" />
+        </div>
+        <div className="flex flex-row gap-4">
+          <FormInput id="input3" label="サ（サンプル）" />
+          <FormInput id="input4" label="サ（サンプル2）" />
+        </div>
+        <FormInput id="input5" label="サンプル" type="number" />
+        <FormInput id="input6" label="メールサンプル" type="email" />
         <FormPasswordInput id="input7" label="パスワード">
           <span className="text-xs text-gray-400 mt-2">
             半角英数字 8~16文字
           </span>
         </FormPasswordInput>
-        <Button onClick={() => router.push("/")}>ログイン</Button>
-        <Button className="underline p-0 font-bold text-sm" variant={"link"}>
-          サンプルの取り扱いについて
-        </Button>
-        <div className="bg-gray-100 py-4 px-6 space-y-2 rounded-lg mt-10">
+        <div className="bg-gray-100 py-4 px-6 space-y-2">
+          <p className="font-bold text-sm">
+            サンプルサンプル、サンプルサンプルサンプルサンプル。
+          </p>
           <Button
             className="justify-start underline p-0 font-bold text-sm"
             variant={"link"}
@@ -57,6 +67,9 @@ const LoginPage = () => {
             サンプルについて
           </Button>
         </div>
+        <Button onClick={() => router.push("url_conform")}>
+          サンプルにして送信
+        </Button>
       </div>
     </div>
   );

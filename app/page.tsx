@@ -14,13 +14,15 @@ const TopPage = () => {
         <p className="text-center font-normal text-sm">
           サンプルサンプルご利用の方
         </p>
-        <Button onClick={() => router.push("/login")}>新規登録</Button>
+        <Button onClick={() => router.push("/register")}>新規登録</Button>
       </div>
       <div className="space-y-4 mt-6">
         <p className="text-center font-normal text-sm">
           サンプルサンプル・サンプルサンプル
         </p>
-        <Button variant="outline">ログイン</Button>
+        <Button variant="outline" onClick={() => router.push("/login")}>
+          ログイン
+        </Button>
       </div>
     </div>
   );
