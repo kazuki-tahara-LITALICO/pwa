@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 const Footer = () => {
   return (
-    <div className="sticky bottom-0 left-0 z-50 w-full h-full bg-white border-t border-gray-200 dark:bg-gray-300 dark:border-gray-200">
+    <footer className="sticky bottom-0 left-0 z-50 w-full h-full bg-white border-t border-gray-200 dark:bg-gray-300 dark:border-gray-200">
       <div className="grid h-full max-w-lg grid-cols-4 mx-auto font-medium pb-4 pt-2">
         <Link
           href="/"
@@ -48,7 +48,7 @@ const Footer = () => {
           </span>
         </Link>
       </div>
-    </div>
+    </footer>
   );
 };
 
