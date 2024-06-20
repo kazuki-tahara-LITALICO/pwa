@@ -36,7 +36,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ja" dir="ltr">
       <body>
-        <main className="flex flex-col items-center justify-center py-2 bg-white">
+        <main className="bg-white">
           {/* <h1 className="text-4xl font-bold mb-8 text-blue-600">
             Next.js + Serwist
           </h1> */}
