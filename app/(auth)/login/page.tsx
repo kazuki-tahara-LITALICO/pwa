@@ -12,6 +12,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
+import { type } from "os";
 
 // サンプルデータ
 const sampleValueObjectArray = [
@@ -22,8 +23,6 @@ const sampleValueObjectArray = [
 
 // メインページコンポーネント
 const LoginPage = () => {
-  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
-
   return (
     <div className="w-screen pt-8 pb-7 px-4">
       <h1 className="text-2xl text-left font-bold">アカウントアカウント</h1>
@@ -44,17 +43,11 @@ const LoginPage = () => {
         </div>
         <FormInput id="input5" label="サンプル" type="number" />
         <FormInput id="input6" label="メールサンプル" type="email" />
-        <FormInput
-          id="input7"
-          label="パスワード"
-          type={isShowPassword ? "text" : "password"}
-          isPassword
-          onTogglePassword={() => setIsShowPassword(!isShowPassword)}
-        >
+        <FormPasswordInput id="input7" label="パスワード">
           <span className="text-xs text-gray-400 mt-2">
             半角英数字 8~16文字
           </span>
-        </FormInput>
+        </FormPasswordInput>
       </div>
     </div>
   );
@@ -117,23 +110,43 @@ type FormInputProps = {
   onTogglePassword?: () => void;
 };
 
-const FormInput = ({
-  id,
-  label,
-  type = "text",
-  children,
-  isPassword,
-  onTogglePassword,
-}: FormInputProps) => (
-  <div className="flex flex-col">
+const FormInput = ({ id, label, type = "text", children }: FormInputProps) => (
+  <div className="flex flex-col w-full">
     <FormLabel id={id}>{label}</FormLabel>
     {children}
     <Input type={type} id={id} className="h-14 mt-2" />
-    {isPassword && (
-      <PasswordToggle onToggle={onTogglePassword && onTogglePassword} />
-    )}
   </div>
 );
+
+type FormPasswordProps = {
+  id: string;
+  label: string;
+  type?: string;
+  children?: ReactNode;
+  isPassword?: boolean;
+  onTogglePassword?: () => void;
+};
+
+const FormPasswordInput = ({
+  id,
+  label,
+  type = "password",
+  children,
+}: FormPasswordProps) => {
+  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
+  return (
+    <div className="flex flex-col">
+      <FormLabel id={id}>{label}</FormLabel>
+      {children}
+      <Input
+        type={isShowPassword ? "text" : type}
+        id={id}
+        className="h-14 mt-2"
+      />
+      <PasswordToggle onToggle={() => setIsShowPassword(!isShowPassword)} />
+    </div>
+  );
+};
 
 // ------------------------- Password Toggle コンポーネント ---------------------
 type PasswordToggleProps = {
@@ -145,7 +158,7 @@ const PasswordToggle = ({ onToggle }: PasswordToggleProps) => (
     <Checkbox id="showPassword" onClick={() => onToggle && onToggle()} />
     <label
       htmlFor="showPassword"
-      className="text-sm peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+      className="text-sm peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
     >
       パスワードを表示
     </label>
