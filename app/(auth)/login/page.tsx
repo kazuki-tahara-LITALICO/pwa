@@ -1,30 +1,39 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 const LoginPage = () => {
   return (
     <div className="w-screen pt-8 pb-7 px-4">
-      <div className="space-y-2">
-        <h1 className="text-2xl text-left font-normal">アカウントアカウント</h1>
-        <Label
-          htmlFor="options"
-          className="flex flex-row gap-2 text-sm items-end"
-        >
-          サンプル<span className="text-xs text-red-600">必須</span>
-        </Label>
-        <SelectComponent
-          placeholder="選択してください"
-          valueObjectArray={sampleValueObjectArray}
-        />
+      <h1 className="text-2xl text-left font-bold">アカウントアカウント</h1>
+      <div className="space-y-5">
+        <div className="mt-3">
+          <FormLabel id="options">サンプル</FormLabel>
+          <SelectComponent
+            id={"options"}
+            placeholder="選択してください"
+            valueObjectArray={sampleValueObjectArray}
+          />
+        </div>
+        <div className="flex flex-row gap-4">
+          <FormInput id="input1" labelName="サンプル" />
+          <FormInput id="input2" labelName="サンプル2" />
+        </div>
+        <div className="flex flex-row gap-4">
+          <FormInput id="input3" labelName="サ（サンプル）" />
+          <FormInput id="input4" labelName="サ（サンプル2）" />
+        </div>
+        <FormInput id="input5" labelName="電ンプル" />
+        <FormInput id="input6" labelName="メールサンプル" />
+        <FormInput id="input6" labelName="パスワード" />
       </div>
     </div>
   );
@@ -38,20 +47,19 @@ const sampleValueObjectArray = [
 ];
 
 type SelectComponent = {
+  id: string;
   placeholder?: string;
   valueObjectArray: { value: string; displayName: string }[];
 };
 
 const SelectComponent = ({
+  id,
   placeholder,
   valueObjectArray,
 }: SelectComponent) => {
   return (
     <Select>
-      <SelectTrigger
-        id="options"
-        className="w-full border-black py-3 px-4 mt-2"
-      >
+      <SelectTrigger id={id} className="w-full border-black py-7 px-4 mt-2">
         <SelectValue className="text-base" placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
@@ -64,6 +72,36 @@ const SelectComponent = ({
         </SelectGroup>
       </SelectContent>
     </Select>
+  );
+};
+
+type FormLabel = {
+  children: ReactNode;
+  id: string;
+  isMust?: boolean;
+};
+
+const FormLabel = ({ children, id, isMust = true }: FormLabel) => {
+  return (
+    <Label htmlFor={id} className="flex flex-row gap-2 text-sm items-end">
+      {children}
+      {isMust && <span className="text-xs text-red-600">必須</span>}
+    </Label>
+  );
+};
+
+type FormInputProps = {
+  id: string;
+  labelName: string;
+  type?: string;
+};
+
+const FormInput = ({ id, labelName, type = "text" }: FormInputProps) => {
+  return (
+    <div className="flex flex-col">
+      <FormLabel id={id}>{labelName}</FormLabel>
+      <Input type={type} id={id} className="h-14 mt-2" />
+    </div>
   );
 };
 
