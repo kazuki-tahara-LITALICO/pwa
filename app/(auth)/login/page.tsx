@@ -1,34 +1,18 @@
 "use client";
 
 import React, { ReactNode, useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
-// サンプルデータ
-const sampleValueObjectArray = [
-  { value: "sample1", displayName: "Sample1" },
-  { value: "sample2", displayName: "Sample2" },
-  { value: "sample3", displayName: "Sample3" },
-];
-
-// メインページコンポーネント
 const LoginPage = () => {
   const router = useRouter();
   return (
     <div className="w-screen pt-8 pb-7 px-4">
-      <h1 className="text-2xl text-left font-bold">ログイン</h1>
-      <div className="space-y-5 mt-3">
+      <h1 className="text-3xl text-left font-bold mt-6">ログイン</h1>
+      <div className="space-y-5 mt-8">
         <FormInput id="input5" label="サンプルID" type="number">
           <span className="text-xs text-gray-400 mt-2">
             半角数字 ハイフンなし
@@ -40,22 +24,27 @@ const LoginPage = () => {
           </span>
         </FormPasswordInput>
         <Button onClick={() => router.push("/")}>ログイン</Button>
-        <Button className="underline p-0 font-bold text-sm" variant={"link"}>
-          サンプルの取り扱いについて
+        <Button
+          className="underline p-0 font-bold text-base mt-10"
+          variant="link"
+        >
+          パスワードお忘れの方
         </Button>
-        <div className="bg-gray-100 py-4 px-6 space-y-2 rounded-lg mt-10">
-          <Button
-            className="justify-start underline p-0 font-bold text-sm"
-            variant={"link"}
-          >
-            サンプルの取り扱いについて
-          </Button>
-          <Button
-            className="justify-start underline p-0 font-bold text-sm"
-            variant={"link"}
-          >
-            サンプルについて
-          </Button>
+        <div>
+          <div className="bg-gray-100 py-4 px-6 space-y-2 rounded-lg mt-14">
+            <Button
+              className="justify-start underline p-0 font-bold text-sm"
+              variant="link"
+            >
+              サンプルの取り扱いについて
+            </Button>
+            <Button
+              className="justify-start underline p-0 font-bold text-sm"
+              variant="link"
+            >
+              サンプルについて
+            </Button>
+          </div>
         </div>
       </div>
     </div>
@@ -69,31 +58,6 @@ type SelectFieldProps = {
   placeholder?: string;
   valueObjectArray: { value: string; displayName: string }[];
 };
-
-const SelectField = ({
-  id,
-  label,
-  placeholder,
-  valueObjectArray,
-}: SelectFieldProps) => (
-  <div>
-    <FormLabel id={id}>{label}</FormLabel>
-    <Select>
-      <SelectTrigger id={id} className="w-full border-black py-7 px-4 mt-2">
-        <SelectValue className="text-base" placeholder={placeholder} />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          {valueObjectArray.map(({ value, displayName }, i) => (
-            <SelectItem key={i} value={value}>
-              {displayName}
-            </SelectItem>
-          ))}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
-  </div>
-);
 
 // ------------------------- Form Label コンポーネント ---------------------
 type FormLabelProps = {
