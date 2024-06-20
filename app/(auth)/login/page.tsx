@@ -1,4 +1,6 @@
-import React, { ReactNode } from "react";
+"use client";
+
+import React, { ReactNode, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -11,30 +13,44 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 
+// サンプルデータ
+const sampleValueObjectArray = [
+  { value: "sample1", displayName: "Sample1" },
+  { value: "sample2", displayName: "Sample2" },
+  { value: "sample3", displayName: "Sample3" },
+];
+
+// メインページコンポーネント
 const LoginPage = () => {
+  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
+
   return (
     <div className="w-screen pt-8 pb-7 px-4">
       <h1 className="text-2xl text-left font-bold">アカウントアカウント</h1>
-      <div className="space-y-5">
-        <div className="mt-3">
-          <FormLabel id="options">サンプル</FormLabel>
-          <SelectComponent
-            id={"options"}
-            placeholder="選択してください"
-            valueObjectArray={sampleValueObjectArray}
-          />
+      <div className="space-y-5 mt-3">
+        <SelectField
+          id="options"
+          label="サンプル"
+          placeholder="選択してください"
+          valueObjectArray={sampleValueObjectArray}
+        />
+        <div className="flex flex-row gap-4">
+          <FormInput id="input1" label="サンプル" />
+          <FormInput id="input2" label="サンプル2" />
         </div>
         <div className="flex flex-row gap-4">
-          <FormInput id="input1" labelName="サンプル" />
-          <FormInput id="input2" labelName="サンプル2" />
+          <FormInput id="input3" label="サ（サンプル）" />
+          <FormInput id="input4" label="サ（サンプル2）" />
         </div>
-        <div className="flex flex-row gap-4">
-          <FormInput id="input3" labelName="サ（サンプル）" />
-          <FormInput id="input4" labelName="サ（サンプル2）" />
-        </div>
-        <FormInput id="input5" labelName="サンプル" type="number" />
-        <FormInput id="input6" labelName="メールサンプル" type="email" />
-        <FormInput id="input6" labelName="パスワード" type="password">
+        <FormInput id="input5" label="サンプル" type="number" />
+        <FormInput id="input6" label="メールサンプル" type="email" />
+        <FormInput
+          id="input7"
+          label="パスワード"
+          type={isShowPassword ? "text" : "password"}
+          isPassword
+          onTogglePassword={() => setIsShowPassword(!isShowPassword)}
+        >
           <span className="text-xs text-gray-400 mt-2">
             半角英数字 8~16文字
           </span>
@@ -44,25 +60,22 @@ const LoginPage = () => {
   );
 };
 
-// ------------------------- Select ---------------------
-const sampleValueObjectArray = [
-  { value: "sample1", displayName: "Sample1" },
-  { value: "sample2", displayName: "Sample2" },
-  { value: "sample3", displayName: "Sample3" },
-];
-
-type SelectComponent = {
+// ------------------------- Select Field コンポーネント ---------------------
+type SelectFieldProps = {
   id: string;
+  label: string;
   placeholder?: string;
   valueObjectArray: { value: string; displayName: string }[];
 };
 
-const SelectComponent = ({
+const SelectField = ({
   id,
+  label,
   placeholder,
   valueObjectArray,
-}: SelectComponent) => {
-  return (
+}: SelectFieldProps) => (
+  <div>
+    <FormLabel id={id}>{label}</FormLabel>
     <Select>
       <SelectTrigger id={id} className="w-full border-black py-7 px-4 mt-2">
         <SelectValue className="text-base" placeholder={placeholder} />
@@ -77,59 +90,66 @@ const SelectComponent = ({
         </SelectGroup>
       </SelectContent>
     </Select>
-  );
-};
+  </div>
+);
 
-type FormLabel = {
+// ------------------------- Form Label コンポーネント ---------------------
+type FormLabelProps = {
   children: ReactNode;
   id: string;
   isMust?: boolean;
 };
 
-const FormLabel = ({ children, id, isMust = true }: FormLabel) => {
-  return (
-    <Label htmlFor={id} className="flex flex-row gap-2 text-sm items-end">
-      {children}
-      {isMust && <span className="text-xs text-red-600">必須</span>}
-    </Label>
-  );
-};
+const FormLabel = ({ children, id, isMust = true }: FormLabelProps) => (
+  <Label htmlFor={id} className="flex flex-row gap-2 text-sm items-end">
+    {children}
+    {isMust && <span className="text-xs text-red-600">必須</span>}
+  </Label>
+);
 
+// ------------------------- Form Input コンポーネント ---------------------
 type FormInputProps = {
   id: string;
-  labelName: string;
+  label: string;
   type?: string;
   children?: ReactNode;
+  isPassword?: boolean;
+  onTogglePassword?: () => void;
 };
 
 const FormInput = ({
   id,
-  labelName,
+  label,
   type = "text",
   children,
-}: FormInputProps) => {
-  return (
-    <div className="flex flex-col">
-      <FormLabel id={id}>{labelName}</FormLabel>
-      {children}
-      <Input type={type} id={id} className="h-14 mt-2" />
-      {type === "password" && <FormCheckBox />}
-    </div>
-  );
+  isPassword,
+  onTogglePassword,
+}: FormInputProps) => (
+  <div className="flex flex-col">
+    <FormLabel id={id}>{label}</FormLabel>
+    {children}
+    <Input type={type} id={id} className="h-14 mt-2" />
+    {isPassword && (
+      <PasswordToggle onToggle={onTogglePassword && onTogglePassword} />
+    )}
+  </div>
+);
+
+// ------------------------- Password Toggle コンポーネント ---------------------
+type PasswordToggleProps = {
+  onToggle?: () => void;
 };
 
-const FormCheckBox = () => {
-  return (
-    <div className="flex items-center space-x-1 mt-2">
-      <Checkbox id="showPassword" />
-      <label
-        htmlFor="showPassword"
-        className="text-sm peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-      >
-        パスワードを表示
-      </label>
-    </div>
-  );
-};
+const PasswordToggle = ({ onToggle }: PasswordToggleProps) => (
+  <div className="flex items-center space-x-1 mt-2">
+    <Checkbox id="showPassword" onClick={() => onToggle && onToggle()} />
+    <label
+      htmlFor="showPassword"
+      className="text-sm peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+    >
+      パスワードを表示
+    </label>
+  </div>
+);
 
 export default LoginPage;
