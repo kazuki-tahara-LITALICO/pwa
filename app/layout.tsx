@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
+import Footer from "./components/Footer/Footer";
 
 const APP_NAME = "NJS App";
 const APP_DESCRIPTION = "Next.js + Serwist PWA";
