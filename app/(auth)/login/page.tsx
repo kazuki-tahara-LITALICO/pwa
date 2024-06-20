@@ -8,15 +8,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
 
 const LoginPage = () => {
   return (
     <div className="w-screen pt-8 pb-7 px-4">
       <div className="space-y-2">
         <h1 className="text-2xl text-left font-normal">アカウントアカウント</h1>
-        <p className="flex flex-row gap-2 text-sm items-end">
+        <Label
+          htmlFor="options"
+          className="flex flex-row gap-2 text-sm items-end"
+        >
           サンプル<span className="text-xs text-red-600">必須</span>
-        </p>
+        </Label>
         <SelectComponent
           placeholder="選択してください"
           valueObjectArray={sampleValueObjectArray}
@@ -29,8 +33,8 @@ const LoginPage = () => {
 // ------------------------- Select ---------------------
 const sampleValueObjectArray = [
   { value: "sample1", displayName: "Sample1" },
-  { value: "sample1", displayName: "Sample1" },
-  { value: "sample1", displayName: "Sample1" },
+  { value: "sample2", displayName: "Sample2" },
+  { value: "sample3", displayName: "Sample3" },
 ];
 
 type SelectComponent = {
@@ -44,7 +48,10 @@ const SelectComponent = ({
 }: SelectComponent) => {
   return (
     <Select>
-      <SelectTrigger className="w-full border-black py-3 px-4 mt-2">
+      <SelectTrigger
+        id="options"
+        className="w-full border-black py-3 px-4 mt-2"
+      >
         <SelectValue className="text-base" placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
