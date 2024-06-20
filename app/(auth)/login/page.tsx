@@ -12,7 +12,8 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { type } from "os";
+import { Button } from "@/components/ui/button";
+import router from "next/router";
 
 // サンプルデータ
 const sampleValueObjectArray = [
@@ -48,6 +49,24 @@ const LoginPage = () => {
             半角英数字 8~16文字
           </span>
         </FormPasswordInput>
+        <div className="bg-gray-100 py-4 px-6 space-y-2">
+          <p className="font-bold text-sm">
+            サンプルサンプル、サンプルサンプルサンプルサンプル。
+          </p>
+          <Button
+            className="justify-start underline p-0 font-bold text-sm"
+            variant={"link"}
+          >
+            サンプルの取り扱いについて
+          </Button>
+          <Button
+            className="justify-start underline p-0 font-bold text-sm"
+            variant={"link"}
+          >
+            サンプルについて
+          </Button>
+        </div>
+        <Button>サンプルにして送信</Button>
       </div>
     </div>
   );
