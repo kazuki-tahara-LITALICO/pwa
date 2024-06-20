@@ -23,7 +23,7 @@ const LoginPage = () => {
             半角英数字 8~16文字
           </span>
         </FormPasswordInput>
-        <Button onClick={() => router.push("/")}>ログイン</Button>
+        <Button onClick={() => router.push("/home")}>ログイン</Button>
         <Button
           className="underline p-0 font-bold text-base mt-10"
           variant="link"
