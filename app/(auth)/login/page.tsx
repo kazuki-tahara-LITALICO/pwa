@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import router from "next/router";
+import { useRouter } from "next/navigation";
 
 // サンプルデータ
 const sampleValueObjectArray = [
@@ -24,6 +24,7 @@ const sampleValueObjectArray = [
 
 // メインページコンポーネント
 const LoginPage = () => {
+  const router = useRouter();
   return (
     <div className="w-screen pt-8 pb-7 px-4">
       <h1 className="text-2xl text-left font-bold">アカウントアカウント</h1>
@@ -66,7 +67,9 @@ const LoginPage = () => {
             サンプルについて
           </Button>
         </div>
-        <Button>サンプルにして送信</Button>
+        <Button onClick={() => router.push("url_conform")}>
+          サンプルにして送信
+        </Button>
       </div>
     </div>
   );
