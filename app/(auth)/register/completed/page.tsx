@@ -1,7 +1,11 @@
+"use client";
+
 import React from "react";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
-const page = () => {
+const RegisterCompletePage = () => {
+  const router = useRouter();
   return (
     <div className="space-y-6">
       <h1 className="text-center text-2xl font-bold">
@@ -33,12 +37,18 @@ const page = () => {
         </ul>
         <p className="text-xs">サンプル情報はいつでも変更できます。</p>
       </div>
+      {/* どこへ遷移するのか未定 */}
       <Button>サン/サンプル登録へ</Button>
-      <Button variant={"link"} className="underline font-bold text-base">
+
+      <Button
+        variant={"link"}
+        className="underline font-bold text-base"
+        onClick={() => router.push("my_page")}
+      >
         マイページへ
       </Button>
     </div>
   );
 };
 
-export default page;
+export default RegisterCompletePage;
