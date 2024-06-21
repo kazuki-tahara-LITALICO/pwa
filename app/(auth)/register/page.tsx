@@ -22,11 +22,10 @@ const sampleValueObjectArray = [
   { value: "sample3", displayName: "Sample3" },
 ];
 
-// メインページコンポーネント
 const LoginPage = () => {
   const router = useRouter();
   return (
-    <div className="w-screen pt-8 pb-7 px-4">
+    <>
       <h1 className="text-2xl text-left font-bold">アカウントアカウント</h1>
       <div className="space-y-5 mt-3">
         <SelectField
@@ -71,7 +70,7 @@ const LoginPage = () => {
           サンプルにして送信
         </Button>
       </div>
-    </div>
+    </>
   );
 };
 

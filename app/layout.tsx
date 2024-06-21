@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
-import Footer from "./components/Footer/Footer";
 
 const APP_NAME = "NJS App";
 const APP_DESCRIPTION = "Next.js + Serwist PWA";
@@ -35,11 +34,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ja" dir="ltr">
-      <body>
-        <div className="flex h-screen flex-col items-center justify-start px-5 bg-white">
-          {children}
-        </div>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 const LoginPage = () => {
   const router = useRouter();
   return (
-    <div className="w-screen pt-8 pb-7 px-4">
+    <>
       <h1 className="text-3xl text-left font-bold mt-6">ログイン</h1>
       <div className="space-y-5 mt-8">
         <FormInput id="input5" label="サンプルID" type="number">
@@ -47,16 +47,8 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
-};
-
-// ------------------------- Select Field コンポーネント ---------------------
-type SelectFieldProps = {
-  id: string;
-  label: string;
-  placeholder?: string;
-  valueObjectArray: { value: string; displayName: string }[];
 };
 
 // ------------------------- Form Label コンポーネント ---------------------
