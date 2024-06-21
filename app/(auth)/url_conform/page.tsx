@@ -12,7 +12,7 @@ const UrlConformPage = () => {
       </p>
       <div className="bg-gray-100 py-4 px-6 text-xs space-y-1">
         <p>サンプルサンプルサンプルサンプル</p>
-        <ul className="space-y-1">
+        <ul className="leading-normal">
           <li>1.サンプルサンプルサンプル</li>
           <li>2.サンプルサンプルサンプル</li>
           <li>
